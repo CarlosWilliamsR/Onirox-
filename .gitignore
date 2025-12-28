@@ -1,0 +1,36 @@
+# --- Dependencias (¡Esto pesa cientos de MB, no lo subas!) ---
+node_modules/
+jspm_packages/
+
+# --- Seguridad (¡CRÍTICO para E-commerce!) ---
+# Aquí van tus API Keys de Stripe, PayPal, DB, etc.
+.env
+.env.test
+.env.production
+.env.local
+.env.*.local
+
+# --- Builds y Dist (Archivos generados automáticamente) ---
+dist/
+build/
+.next/
+out/
+.nuxt/
+.vuepress/dist
+
+# --- Logs y Errores ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Configuración de IDEs (Opcional, pero recomendado) ---
+.idea/
+.vscode/
+*.swp
+*.swo

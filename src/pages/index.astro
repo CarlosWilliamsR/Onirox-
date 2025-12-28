@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
+import ProductGrid from '../components/ProductGrid';
+---
+
+<Layout title="ONIROX - Moda Urbana Unisex">
+	<Navbar />
+	<Hero />
+
+	<!-- Main Shop Section -->
+	<section id="coleccion" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+		<h2 class="text-4xl md:text-5xl lg:text-6xl font-ultrabold text-black mb-12 md:mb-16 uppercase tracking-tight text-center md:text-left">
+			LA COLECCIÓN
+		</h2>
+		<ProductGrid client:load />
+	</section>
+
+	<Footer />
+</Layout>

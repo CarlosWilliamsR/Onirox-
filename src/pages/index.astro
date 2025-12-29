@@ -1,18 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
+import HeroCarousel from '../components/HeroCarousel';
 import Footer from '../components/Footer.astro';
 import ProductGrid from '../components/ProductGrid';
 ---
 
 <Layout title="ONIROX - Moda Urbana Unisex">
 	<Navbar />
-	<Hero />
+	<HeroCarousel client:load />
 
 	<!-- Main Shop Section -->
-	<section id="coleccion" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-		<h2 class="text-4xl md:text-5xl lg:text-6xl font-ultrabold text-black mb-12 md:mb-16 uppercase tracking-tight text-center md:text-left">
+	<section id="coleccion" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 md:py-20 lg:py-28 xl:py-32 relative z-10">
+		<h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-ultrabold text-black dark:text-white mb-8 sm:mb-12 md:mb-16 lg:mb-20 uppercase tracking-[-0.03em] text-center md:text-left animate-fade-in-up leading-tight">
 			LA COLECCIÓN
 		</h2>
 		<ProductGrid client:load />

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useStore } from '@nanostores/react';
+import { motion } from 'framer-motion';
 import { cartItems } from '../store/cartStore';
 import SearchOverlay from './SearchOverlay';
 import CartDrawer from './CartDrawer';
 import MobileMenu from './MobileMenu';
+import ThemeToggle from './ThemeToggle';
+import CartNotification from './CartNotification';
 
 export default function NavbarClient() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -17,18 +20,18 @@ export default function NavbarClient() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white border-b border-zinc-200 h-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-          <div className="flex items-center justify-between h-full">
-            {/* Left: Hamburger Menu (Mobile) */}
-            <div className="md:hidden">
+      <nav className="sticky top-0 z-50 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-zinc-200/30 dark:border-zinc-800/30 h-16 sm:h-20 transition-all duration-500 supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-[#0a0a0a]/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 h-full">
+          <div className="flex items-center justify-between h-full gap-4">
+            {/* Left: Hamburger Menu (Mobile & Tablet) */}
+            <div className="lg:hidden">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="p-2 text-black hover:text-zinc-600 transition-colors"
+                className="p-2 sm:p-2.5 text-black dark:text-white hover:text-zinc-600 dark:hover:text-zinc-400 transition-all duration-200 rounded-lg hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 active:scale-95"
                 aria-label="Abrir menú"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -44,20 +47,21 @@ export default function NavbarClient() {
             </div>
 
             {/* Center: Logo */}
-            <div className="flex-1 md:flex-none text-center md:text-left">
+            <div className="flex-1 lg:flex-none text-center lg:text-left">
               <a
                 href="/"
-                className="text-3xl md:text-4xl font-ultrabold text-black uppercase tracking-tight hover:text-zinc-600 transition-colors"
+                className="text-2xl sm:text-3xl md:text-4xl font-ultrabold text-black dark:text-white uppercase tracking-[-0.02em] hover:text-zinc-700 dark:hover:text-zinc-300 transition-all duration-300 hover:scale-[1.02] inline-block"
               >
                 ONIROX
               </a>
             </div>
 
-            {/* Right: Search & Cart */}
-            <div className="flex items-center gap-4">
+            {/* Right: Desktop Actions - Theme Toggle, Search & Cart */}
+            <div className="hidden lg:flex items-center gap-3">
+              <ThemeToggle />
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-black hover:text-zinc-600 transition-colors"
+                className="p-2.5 text-black dark:text-white hover:text-zinc-600 dark:hover:text-zinc-400 transition-all duration-200 rounded-lg hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 active:scale-95"
                 aria-label="Buscar"
               >
                 <svg
@@ -76,11 +80,11 @@ export default function NavbarClient() {
               </button>
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-black hover:text-zinc-600 transition-colors"
+                className="relative p-2.5 text-black dark:text-white hover:text-zinc-600 dark:hover:text-zinc-400 transition-all duration-200 rounded-lg hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 active:scale-95"
                 aria-label="Carrito"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-6 h-6 transition-transform duration-200 hover:scale-110"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,9 +97,18 @@ export default function NavbarClient() {
                   />
                 </svg>
                 {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 w-5 h-5 bg-black text-white text-xs font-extrabold rounded-full flex items-center justify-center">
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 500,
+                      damping: 15,
+                    }}
+                    className="absolute top-0.5 right-0.5 w-5 h-5 bg-black dark:bg-white text-white dark:text-black text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-soft"
+                  >
                     {cartCount > 9 ? '9+' : cartCount}
-                  </span>
+                  </motion.span>
                 )}
               </button>
             </div>
@@ -108,7 +121,13 @@ export default function NavbarClient() {
         onClose={() => setIsSearchOpen(false)}
       />
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)}
+        onSearchOpen={() => setIsSearchOpen(true)}
+        onCartOpen={() => setIsCartOpen(true)}
+      />
+      <CartNotification />
     </>
   );
 }

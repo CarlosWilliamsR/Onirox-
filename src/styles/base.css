@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light Mode Colors */
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  
+  /* Light Mode Accent Colors */
+  --accent-beige: #f5f2e8;
+  --accent-sky: #e0f2fe;
+  --accent-blue: #dbeafe;
+  
+  /* Light Mode Gradient Orbs */
+  --orb-1: rgba(224, 242, 254, 0.4); /* Sky blue */
+  --orb-2: rgba(245, 242, 232, 0.4); /* Beige */
+  --orb-3: rgba(219, 234, 254, 0.3); /* Light blue */
+}
+
+.dark {
+  /* Dark Mode Colors - Improved contrast */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff; /* Pure white for better contrast */
+  --text-secondary: #d4d4d4; /* Lighter gray for better readability */
+  --text-tertiary: #a3a3a3;
+  
+  /* Dark Mode Accent Colors */
+  --accent-indigo: #1e1b4b;
+  --accent-purple: #2d1b69;
+  --accent-blue-dark: #1e3a5f;
+  
+  /* Dark Mode Borders - More visible */
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  
+  /* Dark Mode Gradient Orbs */
+  --orb-1: rgba(30, 27, 75, 0.5); /* Deep indigo */
+  --orb-2: rgba(45, 27, 105, 0.4); /* Deep purple */
+  --orb-3: rgba(30, 58, 95, 0.4); /* Dark blue */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Account for sticky header */
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 100vh;
+  }
+  
+  /* Better text contrast in dark mode */
+  .dark {
+    color-scheme: dark;
+  }
+  
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #ffffff;
+    font-weight: 800;
+  }
+  
+  .dark p, .dark span, .dark div {
+    color: var(--text-secondary);
+  }
+  
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Smooth focus transitions */
+  *:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    transition: outline-offset 0.2s ease;
+  }
+  
+  .dark *:focus-visible {
+    outline-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Noise Texture Overlay */
+.noise-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  will-change: auto;
+}
+
+.dark .noise-texture {
+  opacity: 0.05;
+}
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* GPU acceleration for common transforms */
+[class*="will-change"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Enhanced dark mode contrast utilities */
+@layer utilities {
+  .dark .text-contrast-high {
+    color: #ffffff;
+  }
+  
+  .dark .text-contrast-medium {
+    color: #e5e5e5;
+  }
+  
+  .dark .border-contrast {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .dark .bg-elevated {
+    background-color: #1a1a1a;
+  }
+  
+  /* Smooth page transitions */
+  .page-transition {
+    animation: fadeInPage 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  @keyframes fadeInPage {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Better hover states */
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+  
+  .dark .hover-lift:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+

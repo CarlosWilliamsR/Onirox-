@@ -1,0 +1,5 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#fafafa" stroke="#e5e5e5" stroke-width="1"/>
+  <text x="400" y="490" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#737373">ONIROX</text>
+  <text x="400" y="525" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#a3a3a3">Product Image</text>
+</svg>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ProductCategory, categoryLabels } from '../data/products';
+import { ProductCategory, categoryLabels, categoryOrder } from '../data/products';
 
 interface ProductFiltersProps {
   selectedCategory: ProductCategory | 'all';
@@ -13,7 +13,7 @@ export default function ProductFilters({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="w-full border-b border-zinc-200 pb-6 mb-8">
+    <div className="w-full border-b border-zinc-200/50 dark:border-zinc-800/50 pb-4 sm:pb-6 md:pb-8 mb-6 sm:mb-8 md:mb-12 animate-fade-in-down">
       {/* Mobile Menu Toggle */}
       <div className="md:hidden mb-4">
         <button
@@ -47,35 +47,33 @@ export default function ProductFilters({
       >
         {/* Category Filter */}
         <div>
-          <h3 className="text-sm font-extrabold text-black uppercase tracking-wider mb-3">
-            Categoría
+          <h3 className="text-xs font-extrabold text-black dark:text-white uppercase tracking-widest mb-3 sm:mb-4 md:mb-6 text-zinc-500 dark:text-zinc-400">
+            CATEGORÍA
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <button
               onClick={() => onCategoryChange('all')}
-              className={`px-4 py-2 text-sm font-extrabold uppercase tracking-wider border transition-colors ${
+              className={`px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider border transition-all duration-300 rounded-full ${
                 selectedCategory === 'all'
-                  ? 'bg-black text-white border-black'
-                  : 'bg-white text-black border-zinc-200 hover:border-black'
+                  ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white scale-105 shadow-medium'
+                  : 'bg-white dark:bg-zinc-800 text-black dark:text-white border-zinc-300 dark:border-zinc-700 hover:border-black dark:hover:border-white hover:scale-105 hover:bg-zinc-50 dark:hover:bg-zinc-700 active:scale-95'
               }`}
             >
               Todas
             </button>
-            {(Object.keys(categoryLabels) as ProductCategory[]).map(
-              (category) => (
-                <button
-                  key={category}
-                  onClick={() => onCategoryChange(category)}
-                  className={`px-4 py-2 text-sm font-extrabold uppercase tracking-wider border transition-colors ${
+            {categoryOrder.map((category) => (
+              <button
+                key={category}
+                onClick={() => onCategoryChange(category)}
+                  className={`px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider border transition-all duration-300 rounded-full ${
                     selectedCategory === category
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white text-black border-zinc-200 hover:border-black'
+                      ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white scale-105 shadow-medium'
+                      : 'bg-white dark:bg-zinc-800 text-black dark:text-white border-zinc-300 dark:border-zinc-700 hover:border-black dark:hover:border-white hover:scale-105 hover:bg-zinc-50 dark:hover:bg-zinc-700 active:scale-95'
                   }`}
-                >
-                  {categoryLabels[category]}
-                </button>
-              )
-            )}
+              >
+                {categoryLabels[category]}
+              </button>
+            ))}
           </div>
         </div>
       </div>

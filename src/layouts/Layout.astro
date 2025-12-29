@@ -1,4 +1,7 @@
 ---
+import '../styles/base.css';
+import AnimatedBackground from '../components/AnimatedBackground';
+
 interface Props {
 	title: string;
 }
@@ -9,20 +12,23 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="ONIROX - Moda Urbana Unisex. Colección 2026 de ropa premium sostenible." />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800;950&display=swap" rel="stylesheet" />
+		<link rel="preload" as="image" href="/images/products/1.jpeg" fetchpriority="high" />
+		<link rel="preload" as="image" href="/images/products/2.jpeg" />
+		<link rel="preload" as="image" href="/images/products/3.jpeg" />
 		<title>{title}</title>
-		<style>
-			html {
-				scroll-behavior: smooth;
-			}
-			body {
-				font-family: 'Montserrat', sans-serif;
-			}
-		</style>
+		<script>
+			import { transitionOnNavigate } from 'astro:transitions/client';
+			transitionOnNavigate();
+		</script>
 	</head>
-	<body class="bg-white text-black font-montserrat">
-		<slot />
+	<body class="bg-white dark:bg-[#0a0a0a] text-black dark:text-white font-montserrat transition-colors duration-300 page-transition">
+		<AnimatedBackground client:idle />
+		<div class="min-h-screen flex flex-col relative">
+			<slot />
+		</div>
 	</body>
 </html>
